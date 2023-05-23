@@ -1,0 +1,27 @@
+spring:
+  #数据库连接池信息
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tlias
+    username: "root"
+    password: "001520"
+  #文件上传的配置
+  servlet:
+    multipart:
+      maxFileSize: 10MB
+      maxRequestSize: 100MB
+#Mybatis配置
+mybatis:
+  configuration:
+    logImpl: org.apache.ibatis.logging.stdout.StdOutImpl
+    mapUnderscoreToCamelCase: true
+#阿里云oss
+aliyun:
+  oss:
+    endpoint: https://oss-cn-guangzhou.aliyuncs.com
+    accessKeyId: LTAI5t7GzJRfNvViCjHxsSf1
+    accessKeySecret: e9p0iwmRXoRk7y4MllvgwXgckE4FEW
+    bucketName: wallpaper-web
+server:
+  port: 8082
+
