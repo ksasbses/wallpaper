@@ -17,7 +17,7 @@ public interface UserMapper {
      * @param id
      * @param w_id
      */
-    @Insert("insert into collection(name,url,collect_id) select wallpaper.name,wallpaper.url,user.id from wallpaper,user where user.id=#{id} and wallpaper.id=#{w_id}")
+    @Insert("insert into collection(id,name,url,collect_id) select wallpaper.id, wallpaper.name,wallpaper.url,user.id from wallpaper,user where user.id=#{id} and wallpaper.id=#{w_id}")
     void addFavorit(Integer id, Integer w_id);
 
     /**
@@ -47,7 +47,7 @@ public interface UserMapper {
      * 新增用户
      * @param user
      */
-    @Insert("insert into user(user_name, user_password, age, image) values(#{user_name},#{user_password},#{age},#{image})")
+    @Insert("insert into user(user_name, user_password) values(#{user_name},#{user_password})")
     void adduser(User user);
 
     /**

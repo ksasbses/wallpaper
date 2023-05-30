@@ -15,7 +15,6 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
-
     /**
      * 查询全部类别
      */
@@ -25,9 +24,7 @@ public class CategoryController {
         //调用service
         List<Category> categoryList = categoryService.classesList();
         return Result.success(categoryList);
-
     }
-
     /**
      * 新增类别
      */
@@ -38,7 +35,6 @@ public class CategoryController {
         categoryService.classesAdd(category);
         return Result.success();
     }
-
     /**
      * 删除类别
      */
@@ -48,6 +44,5 @@ public class CategoryController {
         //调用service删除壁纸
         categoryService.delClasses(id);
         return Result.success();
-
     }
 }

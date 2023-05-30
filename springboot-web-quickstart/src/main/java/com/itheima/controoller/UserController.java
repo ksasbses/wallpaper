@@ -47,7 +47,7 @@ public class UserController {
      * 查询用户的收藏
      * @param id
      */
-    @PostMapping("/user/collectall")
+    @GetMapping("/user/collectall")
     public Result queryCollection(Integer id){
         log.info("查询成功,用户id：{}",id);
         //调用service
@@ -90,7 +90,6 @@ public class UserController {
         userService.delUser(id);
         return Result.success();
     }
-
     /**
      * 登录
      * @param user
@@ -100,16 +99,16 @@ public class UserController {
         log.info("用户登录：{}",user);
         //调用service
         User u = userService.login(user);
-
+//        log.info(u.getImage());
         //登录成功，生成令牌，下发令牌
         if (u !=  null){
             Map<String,Object> claims = new HashMap<>();
             claims.put("id",u.getId());
-            claims.put("user_name",u.getUser_name());
-
+            claims.put("user_name",user.getUser_name());
+            claims.put("image",u.getImage());
             Object jwt = JwtUtils.generateJwt(claims);
-            return Result.success(jwt);
-
+            claims.put("jwt",jwt);
+            return Result.success(claims);
         }
         return u != null?Result.success():Result.error("用户名或者密码错误");
     }

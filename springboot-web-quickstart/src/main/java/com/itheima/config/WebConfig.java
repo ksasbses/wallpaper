@@ -11,7 +11,9 @@ import java.util.List;
 
 @Configuration //配置类
 public class WebConfig implements WebMvcConfigurer {
-
+    /**
+     * 拦截器 拦截前端的请求
+     */
     @Autowired
     private LoginCheckInterceptor loginCheckInterceptor;
 
@@ -24,6 +26,7 @@ public class WebConfig implements WebMvcConfigurer {
         route.add("/wallpaper/search");
         route.add("/login");
         route.add("/administratorlogin");
+        route.add("/category/all");
 
 
         registry.addInterceptor(loginCheckInterceptor).addPathPatterns("/**").excludePathPatterns(route);

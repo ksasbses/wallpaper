@@ -1,10 +1,10 @@
 package com.itheima.interceptor;
-
 import com.alibaba.fastjson.JSONObject;
 import com.itheima.pojo.Result;
 import com.itheima.utils.JwtUtils;
 import javafx.beans.binding.Bindings;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -19,11 +19,18 @@ import java.util.ArrayList;
 public class LoginCheckInterceptor implements HandlerInterceptor {
     @Override //目标资源方法运行前运行，返回true：放行，返回false：不放行
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        String origin  = request.getHeader(HttpHeaders.ORIGIN);
+        if (origin != null) {
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT, HEAD");
+            //这里设置允许的自定义header参数
+            response.setHeader("Access-Control-Allow-Headers", "Content-Type, Token, adminID");
+            response.setHeader("Access-Control-Max-Age", "3600");
+        }
 
         // 1.获取请求url
         String url = request.getRequestURI().toString();
         log.info("请求的url：{}", url);
-
         //2.判断请求url中是否包含直接放行的请求
         ArrayList<String> route = new ArrayList<String>();
         route.add("/wallpapers/all");
@@ -32,13 +39,14 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         route.add("/user/register");
         route.add("/login");
         route.add("/administratorlogin");
+        route.add("/category/all");
+
 
         for (int i = 0; i < route.size(); i++) {
             if (url.contains(route.get(i))) {
                 log.info("不需要登录的操作，放行",route.get(i));
                 return true;
             }
-
         }
         // 获取请求头中的令牌（token）
         String jwt = request.getHeader("token");
