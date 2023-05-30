@@ -18,11 +18,11 @@ mybatis:
 #阿里云oss
 aliyun:
   oss:
-#    把这里都换成自己的
-    endpoint: https://oss-cn-guangzhou.aliyuncs.com
-    accessKeyId: LTAI5t7GzJRfNvViCjHxsSf1
-    accessKeySecret: e9p0iwmRXoRk7y4MllvgwXgckE4FEW
-    bucketName: wallpaper-web
+#    把这里都换成自己的oss
+    endpoint: 
+    accessKeyId: 
+    accessKeySecret: 
+    bucketName: 
 server:
   port: 8082
 
